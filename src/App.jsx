@@ -5,7 +5,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api//track-vehicle-details-location')
+    fetch('https://thingproxy.freeboard.io/fetch/https://get-vehilce-track-details.onrender.com/track-vehicle-details-location')
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
