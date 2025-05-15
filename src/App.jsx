@@ -6,7 +6,7 @@ function App() {
   useEffect(() => {
     fetch('/api//track-vehicle-details-location')
       .then(res => res.json())
-      .then(setData)
+      .then(dat => setData(dat))
       .catch(console.error);
   }, []);
 
