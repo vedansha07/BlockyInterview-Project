@@ -2,22 +2,28 @@ import React, { useEffect, useState } from 'react';
 
 function App() {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiUrl = import.meta.env.PROD 
-      ? 'https://get-vehilce-track-details.onrender.com/track-vehicle-details-location'
-      : '/api/track-vehicle-details-location';
-
-    fetch(apiUrl)
-      .then(res => res.json())
+    fetch('/api/track-vehicle-details-location')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => setData(data))
-      .catch(console.error);
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+      });
   }, []);
 
-  if (!data) return null;
+  if (error) return <div>Error: {error}</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' ,backgroundColor: 'white' ,color: 'black'}}>
+    <div style={{ padding: '20px', fontFamily: 'Arial', backgroundColor: 'white', color: 'black' }}>
       <h1>Vehicle Info</h1>
       <p><strong>Vehicle Number:</strong> {data.vehicle_details.number}</p>
       <p><strong>Model:</strong> {data.vehicle_details.model}</p>
