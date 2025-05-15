@@ -4,7 +4,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('/api//track-vehicle-details-location')
+    fetch('/api/track-vehicle-details-location')
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
