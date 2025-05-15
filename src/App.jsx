@@ -4,13 +4,17 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('/api//track-vehicle-details-location')
+    const apiUrl = import.meta.env.PROD 
+      ? 'https://get-vehilce-track-details.onrender.com/track-vehicle-details-location'
+      : '/api/track-vehicle-details-location';
+
+    fetch(apiUrl)
       .then(res => res.json())
-      .then(dat => setData(dat))
+      .then(data => setData(data))
       .catch(console.error);
   }, []);
 
-   if (!data) return null;
+  if (!data) return null;
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial' ,backgroundColor: 'white' ,color: 'black'}}>
